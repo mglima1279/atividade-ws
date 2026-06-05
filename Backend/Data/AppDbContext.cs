@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Backend.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
@@ -6,5 +7,6 @@ namespace Backend.Data
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
 
+        public DbSet<Agencia> Agencias { get; set; }
     }
 }
