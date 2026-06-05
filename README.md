@@ -64,9 +64,6 @@ CREATE TABLE `agencias`(
 
 # API Endpoints
 
-```
-# Documentação da API - Agências
-
 A rota base para todos os endpoints listados abaixo é: `api/agencias`
 
 ## Estrutura do Objeto (Agencia)
