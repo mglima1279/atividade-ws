@@ -51,10 +51,11 @@ namespace Backend.Repositories
         public async Task Delete(int id)
         {
             Agencia? entity = await _context.Agencias.FindAsync(id);
-            if(entity != null)
+            if (entity != null)
             {
                 _context.Agencias.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }
+    }
 }
