@@ -1,4 +1,5 @@
 using Backend.Data;
+using Backend.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
 });
+
+builder.Services.AddScoped<AgenciaRepository>();
 
 builder.Services.AddControllers();
 
