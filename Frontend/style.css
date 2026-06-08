@@ -1,22 +1,3 @@
-/* ==========================================
-   CONFIGURAÇÕES GERAIS / RESETS
-   ========================================== */
-:root {
-    --bg-body: #f4f7fc;
-    --bg-card: #ffffff;
-    --primary-blue: #185eff;
-    --primary-blue-hover: #1146c7;
-    --text-main: #2b3a61;
-    --text-muted: #7d8da7;
-    --text-light: #a3b1c6;
-    --border-color: #e2e8f0;
-    --gray-box: #7c8594;
-    --blue-box: #7e8eb4;
-    --green-btn: #6bc4a6;
-    --green-btn-hover: #56b093;
-    --green-text: #4ade80;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +6,7 @@
 }
 
 body {
-    background-color: var(--bg-body);
+    background-color: #ebf1ff;
     color: var(--text-main);
     display: flex;
     flex-direction: column;
@@ -35,9 +16,6 @@ body {
     padding: 20px;
 }
 
-/* ==========================================
-   CABEÇALHO (TITLE)
-   ========================================== */
 .title {
     text-align: center;
     margin-bottom: 30px;
@@ -54,16 +32,13 @@ body {
 }
 
 .title p {
-    color: var(--text-muted);
+    color: #08256e;
     font-size: 0.95rem;
     margin-top: 5px;
 }
 
-/* ==========================================
-   ESTRUTURA DOS CARDS / SECTIONS
-   ========================================== */
 section {
-    background-color: var(--bg-card);
+    background-color: white;
     border-radius: 16px;
     padding: 30px;
     width: 100%;
@@ -72,20 +47,19 @@ section {
     margin-bottom: 24px;
 }
 
-/* Títulos das Seções (Passo 1 e Passo 2) */
-section>div:first-child {
+.section-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-main);
+    color: #000c2b;
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-section>div:first-child span {
+.section-title span {
     background-color: #e0ebff;
-    color: var(--primary-blue);
+    color: #08256e;
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -96,12 +70,10 @@ section>div:first-child span {
     font-weight: 700;
 }
 
-/* Labels e Inputs Gerais */
 label {
-    display: block;
+    color: #08256e;
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--text-muted);
     margin-bottom: 8px;
     letter-spacing: 0.5px;
 }
@@ -109,56 +81,47 @@ label {
 input {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #d1d1d1;
     border-radius: 8px;
     font-size: 0.95rem;
-    color: var(--text-main);
+    color: #000c2b;
     outline: none;
     transition: border-color 0.2s;
 }
 
 input::placeholder {
-    color: var(--text-light);
+    color: #d1d1d1;
 }
 
 input:focus {
-    border-color: var(--primary-blue);
+    border-color: #0b318f;
 }
 
-/* ==========================================
-   SEÇÃO 1: IDENTIFICAÇÃO DO CLIENTE
-   ========================================== */
-section:nth-of-type(1) .form-group-row {
-    display: flex;
-    gap: 15px;
+.cpf-input-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    gap: 20px;
 }
 
-section:nth-of-type(1) input {
-    flex: 1;
-}
-
-section:nth-of-type(1) button {
-    background-color: var(--primary-blue);
+.cpf-input-wrapper button {
+    background-color: #0b318f;
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 0 24px;
-    font-weight: 600;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
     transition: background-color 0.2s;
 }
 
-section:nth-of-type(1) button:hover {
-    background-color: var(--primary-blue-hover);
+.cpf-input-wrapper button:hover {
+    background-color: #0041e4;
 }
 
-/* ==========================================
-   SEÇÃO 2: CONDIÇÕES DO EMPRÉSTIMO
-   ========================================== */
-/* Grid de 4 colunas para as entradas */
 .conditions-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -166,14 +129,13 @@ section:nth-of-type(1) button:hover {
     margin-bottom: 30px;
 }
 
-/* Dropdown Customizado (Taxa de Juros) */
 .dropdown {
+    color: #000c2b;
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #d1d1d1;
     border-radius: 8px;
     font-size: 0.95rem;
-    color: var(--text-main);
     background-color: #fff;
     cursor: pointer;
     position: relative;
@@ -185,7 +147,7 @@ section:nth-of-type(1) button:hover {
 .dropdown::after {
     content: '▼';
     font-size: 0.7rem;
-    color: var(--text-muted);
+    color: #000c2b;
 }
 
 .dopdownContent {
@@ -195,7 +157,7 @@ section:nth-of-type(1) button:hover {
     left: 0;
     width: 100%;
     background-color: #fff;
-    border: 1px solid var(--border-color);
+    border: 1px solid #d1d1d1;
     border-radius: 8px;
     margin-top: 4px;
     z-index: 10;
@@ -211,11 +173,10 @@ section:nth-of-type(1) button:hover {
     background-color: #f4f7fc;
 }
 
-.dropdown:hover .dopdownContent {
+.dopdownContent.show {
     display: block;
 }
 
-/* Containers dos Quadros de Resultado (Inferiores) */
 .results-container {
     display: flex;
     gap: 20px;
@@ -230,16 +191,16 @@ section:nth-of-type(1) button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 10px;
     min-height: 140px;
 }
 
-/* Diferenciando as duas caixas de resultado */
 .results-container .menuDiv:nth-child(1) {
-    background-color: var(--gray-box);
+    background-color: #272727;
 }
 
 .results-container .menuDiv:nth-child(2) {
-    background-color: var(--blue-box);
+    background-color: #00003a;
 }
 
 .menuDiv p:first-of-type {
@@ -249,46 +210,28 @@ section:nth-of-type(1) button:hover {
     opacity: 0.8;
 }
 
+.menuDiv p {
+    font-size: .7rem;
+    font-weight: 500;
+}
+
+.results-container .menuDiv:nth-child(2) p {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #82b1ff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .menuDiv div {
     font-size: 1.8rem;
     font-weight: 700;
     margin: 10px 0;
 }
 
-/* Cor verde específica para o valor final */
-.results-container .menuDiv:nth-child(2) div {
-    color: var(--green-text);
-}
-
-.menuDiv hr {
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    margin-bottom: 10px;
-}
-
-.menuDiv p:last-of-type {
-    font-size: 0.7rem;
-    line-height: 1.3;
-    opacity: 0.7;
-}
-
-/* Caixa direita com rodapé específico de juros */
-.results-container .menuDiv:nth-child(2) .total-juros-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-/* Botão Finalizador (Efetivar Empréstimo) */
-.btn-submit-container {
-    display: flex;
-    justify-content: flex-end;
-}
-
-section:nth-of-type(2)>button,
 .btn-submit {
-    background-color: var(--green-btn);
+    background-color: #00802b;
     color: white;
     border: none;
     border-radius: 8px;
@@ -300,17 +243,14 @@ section:nth-of-type(2)>button,
     align-items: center;
     gap: 8px;
     transition: background-color 0.2s;
+    justify-self: right;
 }
 
-section:nth-of-type(2)>button:hover,
 .btn-submit:hover {
-    background-color: var(--green-btn-hover);
+    background-color: #002c0f;
 }
 
-/* ==========================================
-   RESPONSIVIDADE (MOBILE)
-   ========================================== */
-@media (max-width: 768px) {
+@media (max-width: 760px) {
     .conditions-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -318,15 +258,16 @@ section:nth-of-type(2)>button:hover,
     .results-container {
         flex-direction: column;
     }
+
+    .cpf-input-wrapper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+    }
 }
 
 @media (max-width: 480px) {
     .conditions-grid {
         grid-template-columns: 1fr;
-    }
-
-    section:nth-of-type(1) .form-group-row {
-        flex-direction: column;
     }
 
     section:nth-of-type(1) button {

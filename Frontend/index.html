@@ -1,12 +1,324 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMPRESTIMOS</title>
+    <title>Simulação de Empréstimos</title>
+    <style>
+        /* --- ESTILOS ORIGINAIS E AJUSTES DE ESTADO --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        body {
+            background-color: #ebf1ff;
+            color: #000c2b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            color: #0b318f;
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .title p {
+            color: #08256e;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Regra 1: Estado bloqueado da interface */
+        section.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000c2b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background-color: #e0ebff;
+            color: #08256e;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .formDiv {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #08256e;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #000c2b;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #fff;
+        }
+
+        input::placeholder {
+            color: #d1d1d1;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #0b318f;
+        }
+
+        .cpf-input-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 15%;
+            gap: 20px;
+        }
+
+        .cpf-input-wrapper button {
+            background-color: #0b318f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .cpf-input-wrapper button:hover {
+            background-color: #0041e4;
+        }
+
+        .client-info-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f4f7fc;
+            border-radius: 8px;
+            border-left: 4px solid #0b318f;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .conditions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Dropdown customizado */
+        .dropdown {
+            color: #000c2b;
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background-color: #fff;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .dropdown::after {
+            content: '▼';
+            font-size: 0.7rem;
+            color: #000c2b;
+        }
+
+        .dopdownContent {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+            margin-top: 4px;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .dopdownContent div {
+            padding: 10px 16px;
+            transition: background 0.2s;
+        }
+
+        .dopdownContent div:hover {
+            background-color: #f4f7fc;
+        }
+
+        .dopdownContent.show {
+            display: block;
+        }
+
+        .results-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .menuDiv {
+            flex: 1;
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            min-height: 140px;
+        }
+
+        .results-container .menuDiv:nth-child(1) {
+            background-color: #272727;
+        }
+
+        .results-container .menuDiv:nth-child(2) {
+            background-color: #00003a;
+        }
+
+        .menuDiv p:first-of-type {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .menuDiv p {
+            font-size: .7rem;
+            font-weight: 500;
+        }
+
+        .results-container .menuDiv:nth-child(2) p:last-of-type {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #82b1ff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .menuDiv div {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .btn-submit {
+            background-color: #00802b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #002c0f;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin: 5px 0;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 760px) {
+            .conditions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .results-container {
+                flex-direction: column;
+            }
+
+            .cpf-input-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .client-info-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .conditions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -15,67 +327,267 @@
         <p>Insira os dados do cliente e configure as condições do crédito</p>
     </div>
 
-    <section>
-        <div>
+    <section id="section-client">
+        <div class="section-title">
             <span>1</span> Identificação do Cliente
         </div>
         <label for="cpf">CPF DO CLIENTE</label>
-        <div>
-            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00">
-            <button>Buscar</button>
+        <div class="cpf-input-wrapper">
+            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" maxlength="14">
+            <button id="btn-buscar">🔍︎ Buscar</button>
+        </div>
+
+        <div class="client-info-box" id="client-info" style="display: none;">
+            <div>
+                <label>NOME DO CLIENTE</label>
+                <strong id="client-name" style="color: #0b318f; font-size: 1.1rem;">-</strong>
+            </div>
+            <div>
+                <label for="select-conta">SELECIONE A CONTA BANCÁRIA</label>
+                <select id="select-conta">
+                </select>
+            </div>
         </div>
     </section>
 
-    <section>
-        <div>
-            <span>1</span> Identificação do Cliente
+    <section id="section-loan" class="disabled">
+        <div class="section-title">
+            <span>2</span> Condições do Empréstimo
         </div>
-        <div>
+        <div class="conditions-grid">
             <div class="formDiv">
-                <label for="">VALOR SOLICITADO</label>
-                <input type="number" placeholder="R$ 0,00">
+                <label for="input-valor">VALOR SOLICITADO</label>
+                <input type="text" id="input-valor" placeholder="R$ 0,00">
             </div>
 
             <div class="formDiv">
-                <label for="">TAXA DE JUROS (A.M.)</label>
-                <div class="dropdown">
-                    1.0%
-                    <div class="dopdownContent">
-                        <div>1.0%</div>
-                        <div>2.0%</div>
-                        <div>3.0%</div>
+                <label>TAXA DE JUROS (A.M.)</label>
+                <div class="dropdown" id="loan-dropdown">
+                    <span id="dropdown-selected">1.0%</span>
+                    <div class="dopdownContent" id="dropdown-content">
+                        <div class="taxOption" data-value="0.01">1.0%</div>
+                        <div class="taxOption" data-value="0.02">2.0%</div>
+                        <div class="taxOption" data-value="0.03">3.0%</div>
                     </div>
                 </div>
             </div>
 
             <div class="formDiv">
-                <label for="">N° DE PARCELAS</label>
-                <input type="number" placeholder="R$ 0,00">
+                <label for="input-parcelas">N° DE PARCELAS</label>
+                <input type="number" id="input-parcelas" placeholder="Ex: 12" min="1">
             </div>
 
             <div class="formDiv">
-                <label for="">1° VENCIMENTO</label>
-                <input type="date" placeholder="R$ 0,00">
+                <label for="input-vencimento">1° VENCIMENTO</label>
+                <input type="date" id="input-vencimento">
             </div>
         </div>
 
-        <div>
+        <div class="results-container">
             <div class="menuDiv">
                 <p>VALOR DE CADA PARCELA</p>
-                <div>R$ 0,00</div>
+                <div id="display-parcela">R$ 0,00</div>
                 <hr>
-                <p>Cálculo baseado no regime de juros simples/compostos conforme regras bancárias</p>
+                <p>Cálculo baseado no regime de juros compostos (Tabela Price)</p>
             </div>
             <div class="menuDiv">
-                <p>VALOR DE CADA PARCELA</p>
-                <div>R$ 0,00</div>
+                <p>VALOR TOTAL FINAL A PAGAR</p>
+                <div id="display-total">R$ 0,00</div>
                 <hr>
-                <p>Cálculo baseado no regime de juros simples/compostos conforme regras bancárias</p>
+                <p>Total de Juros: <span id="display-juros">R$ 0,00</span></p>
             </div>
         </div>
 
-        <button>Efetivar Empréstimo</button>
+        <button class="btn-submit" id="btn-efetivar">Efetivar Empréstimo</button>
     </section>
+
+    <script>
+        const dbClientes = {
+            "123.456.789-09": {
+                nome: "Carlos Eduardo da Silva",
+                contas: [
+                    "Agência 0001 | Conta 10245-8 (Corrente)",
+                    "Agência 0001 | Conta 55921-0 (Poupança)"
+                ]
+            },
+            "987.654.321-00": {
+                nome: "Mariana Costa Rodrigues",
+                contas: [
+                    "Agência 4022 | Conta 88312-4 (Corrente)"
+                ]
+            }
+        };
+
+        const cpfInput = document.getElementById('cpf');
+        const btnBuscar = document.getElementById('btn-buscar');
+        const sectionLoan = document.getElementById('section-loan');
+        const clientInfoBox = document.getElementById('client-info');
+        const clientNameDisplay = document.getElementById('client-name');
+        const selectConta = document.getElementById('select-conta');
+
+        const inputValor = document.getElementById('input-valor');
+        const inputParcelas = document.getElementById('input-parcelas');
+        const inputVencimento = document.getElementById('input-vencimento');
+
+        const loanDropdown = document.getElementById('loan-dropdown');
+        const dropdownContent = document.getElementById('dropdown-content');
+        const dropdownSelected = document.getElementById('dropdown-selected');
+
+        const displayParcela = document.getElementById('display-parcela');
+        const displayTotal = document.getElementById('display-total');
+        const displayJuros = document.getElementById('display-juros');
+        const btnEfetivar = document.getElementById('btn-efetivar');
+
+        let taxaJurosAtual = 0.01;
+        let valorNumericoPuro = 0;
+
+        cpfInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, "");
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 9) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{1,2})$/, "$1.$2.$3-$4");
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{1,3})$/, "$1.$2.$3");
+            } else if (value.length > 3) {
+                value = value.replace(/^(\d{3})(\d{1,3})$/, "$1.$2");
+            }
+            e.target.value = value;
+        });
+
+        btnBuscar.addEventListener('click', () => {
+            const cpfVal = cpfInput.value;
+
+            if (!isCpfValid(cpfVal)) {
+                alert("Por favor, digite um CPF válido.");
+                return;
+            }
+
+            const cliente = dbClientes[cpfVal] || {
+                nome: "Cliente Fictício Teste",
+                contas: ["Agência 0001 | Conta 99999-9 (Corrente)"]
+            };
+
+            clientNameDisplay.textContent = cliente.nome;
+            selectConta.innerHTML = cliente.contas.map(conta => `<option value="${conta}">${conta}</option>`).join('');
+            clientInfoBox.style.display = 'grid';
+
+            sectionLoan.classList.remove('disabled');
+        });
+
+        inputValor.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, "");
+            if (!value) {
+                valorNumericoPuro = 0;
+                e.target.value = "";
+                calcularEmprestimo();
+                return;
+            }
+
+            valorNumericoPuro = parseFloat(value) / 100;
+            e.target.value = valorNumericoPuro.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            calcularEmprestimo();
+        });
+
+        loanDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.taxOption').forEach(option => {
+            option.addEventListener('click', (e) => {
+                dropdownSelected.textContent = e.target.textContent;
+                taxaJurosAtual = parseFloat(e.target.getAttribute('data-value'));
+                dropdownContent.classList.remove('show');
+
+                calcularEmprestimo();
+            });
+        });
+
+        document.addEventListener('click', () => {
+            dropdownContent.classList.remove('show');
+        });
+
+        inputParcelas.addEventListener('input', calcularEmprestimo);
+
+        function calcularEmprestimo() {
+            const p = valorNumericoPuro;
+            const i = taxaJurosAtual;
+            const n = parseInt(inputParcelas.value);
+
+            if (!p || !n || n <= 0) {
+                zerarVisor();
+                return;
+            }
+
+            let valorParcela = 0;
+
+            if (i === 0) {
+                valorParcela = p / n;
+            } else {
+                valorParcela = (p * i) / (1 - Math.pow(1 + i, -n));
+            }
+
+            const valorTotalFinal = valorParcela * n;
+            const totalJurosAcumulado = valorTotalFinal - p;
+
+            displayParcela.textContent = valorParcela.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            displayTotal.textContent = valorTotalFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            displayJuros.textContent = totalJurosAcumulado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function zerarVisor() {
+            displayParcela.textContent = "R$ 0,00";
+            displayTotal.textContent = "R$ 0,00";
+            displayJuros.textContent = "R$ 0,00";
+        }
+
+        btnEfetivar.addEventListener('click', () => {
+            if (valorNumericoPuro <= 0 || !inputParcelas.value || !inputVencimento.value) {
+                alert("Por favor, preencha todos os campos do empréstimo antes de efetivar.");
+                return;
+            }
+            alert(`🎉 Empréstimo de ${inputValor.value} efetivado com sucesso para a conta:\n${selectConta.value}`);
+        });
+
+        function isCpfValid(cpf) {
+            const cpfLimpo = cpf.replace(/\D/g, '');
+
+            if (cpfLimpo.length !== 11) return false;
+
+            if ([
+                "00000000000",
+                "11111111111",
+                "22222222222",
+                "33333333333",
+                "44444444444",
+                "55555555555",
+                "66666666666",
+                "77777777777",
+                "88888888888",
+                "99999999999"
+            ].indexOf(cpfLimpo) !== -1) return false;
+
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+            }
+            let resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpfLimpo.charAt(9))) return false;
+
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+            }
+            resto = (soma * 10) % 11;
+            if (resto === 10 || resto === 11) resto = 0;
+            if (resto !== parseInt(cpfLimpo.charAt(10))) return false;
+
+            return true;
+        }
+    </script>
 </body>
 
 </html>
