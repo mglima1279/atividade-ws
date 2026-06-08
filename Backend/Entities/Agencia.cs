@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
-    [Table("agencias")]
+    [Table("agencias_tb")]
     public class Agencia
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

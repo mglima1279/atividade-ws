@@ -1,0 +1,336 @@
+/* ==========================================
+   CONFIGURAÇÕES GERAIS / RESETS
+   ========================================== */
+:root {
+    --bg-body: #f4f7fc;
+    --bg-card: #ffffff;
+    --primary-blue: #185eff;
+    --primary-blue-hover: #1146c7;
+    --text-main: #2b3a61;
+    --text-muted: #7d8da7;
+    --text-light: #a3b1c6;
+    --border-color: #e2e8f0;
+    --gray-box: #7c8594;
+    --blue-box: #7e8eb4;
+    --green-btn: #6bc4a6;
+    --green-btn-hover: #56b093;
+    --green-text: #4ade80;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ==========================================
+   CABEÇALHO (TITLE)
+   ========================================== */
+.title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.title h1 {
+    color: #0b318f;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.title p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 5px;
+}
+
+/* ==========================================
+   ESTRUTURA DOS CARDS / SECTIONS
+   ========================================== */
+section {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    margin-bottom: 24px;
+}
+
+/* Títulos das Seções (Passo 1 e Passo 2) */
+section>div:first-child {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+section>div:first-child span {
+    background-color: #e0ebff;
+    color: var(--primary-blue);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/* Labels e Inputs Gerais */
+label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input::placeholder {
+    color: var(--text-light);
+}
+
+input:focus {
+    border-color: var(--primary-blue);
+}
+
+/* ==========================================
+   SEÇÃO 1: IDENTIFICAÇÃO DO CLIENTE
+   ========================================== */
+section:nth-of-type(1) .form-group-row {
+    display: flex;
+    gap: 15px;
+}
+
+section:nth-of-type(1) input {
+    flex: 1;
+}
+
+section:nth-of-type(1) button {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 24px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+section:nth-of-type(1) button:hover {
+    background-color: var(--primary-blue-hover);
+}
+
+/* ==========================================
+   SEÇÃO 2: CONDIÇÕES DO EMPRÉSTIMO
+   ========================================== */
+/* Grid de 4 colunas para as entradas */
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* Dropdown Customizado (Taxa de Juros) */
+.dropdown {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown::after {
+    content: '▼';
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.dopdownContent {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 4px;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dopdownContent div {
+    padding: 10px 16px;
+    transition: background 0.2s;
+}
+
+.dopdownContent div:hover {
+    background-color: #f4f7fc;
+}
+
+.dropdown:hover .dopdownContent {
+    display: block;
+}
+
+/* Containers dos Quadros de Resultado (Inferiores) */
+.results-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.menuDiv {
+    flex: 1;
+    border-radius: 12px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 140px;
+}
+
+/* Diferenciando as duas caixas de resultado */
+.results-container .menuDiv:nth-child(1) {
+    background-color: var(--gray-box);
+}
+
+.results-container .menuDiv:nth-child(2) {
+    background-color: var(--blue-box);
+}
+
+.menuDiv p:first-of-type {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.menuDiv div {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+/* Cor verde específica para o valor final */
+.results-container .menuDiv:nth-child(2) div {
+    color: var(--green-text);
+}
+
+.menuDiv hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 10px;
+}
+
+.menuDiv p:last-of-type {
+    font-size: 0.7rem;
+    line-height: 1.3;
+    opacity: 0.7;
+}
+
+/* Caixa direita com rodapé específico de juros */
+.results-container .menuDiv:nth-child(2) .total-juros-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Botão Finalizador (Efetivar Empréstimo) */
+.btn-submit-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+section:nth-of-type(2)>button,
+.btn-submit {
+    background-color: var(--green-btn);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+section:nth-of-type(2)>button:hover,
+.btn-submit:hover {
+    background-color: var(--green-btn-hover);
+}
+
+/* ==========================================
+   RESPONSIVIDADE (MOBILE)
+   ========================================== */
+@media (max-width: 768px) {
+    .conditions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .results-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    section:nth-of-type(1) .form-group-row {
+        flex-direction: column;
+    }
+
+    section:nth-of-type(1) button {
+        padding: 12px;
+        justify-content: center;
+    }
+}

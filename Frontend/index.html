@@ -4,14 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agencias</title>
+    <title>EMPRESTIMOS</title>
 
-    <link rel="stylesheet" href="assets/css/root.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <a href="./view/create.html">Criar Agencia</a>
-    <a href="./view/list.html">Listar Agencia</a>
+    <div class="title">
+        <h1>🏦 Novo Empréstimo</h1>
+        <p>Insira os dados do cliente e configure as condições do crédito</p>
+    </div>
+
+    <section>
+        <div>
+            <span>1</span> Identificação do Cliente
+        </div>
+        <label for="cpf">CPF DO CLIENTE</label>
+        <div>
+            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00">
+            <button>Buscar</button>
+        </div>
+    </section>
+
+    <section>
+        <div>
+            <span>1</span> Identificação do Cliente
+        </div>
+        <div>
+            <div class="formDiv">
+                <label for="">VALOR SOLICITADO</label>
+                <input type="number" placeholder="R$ 0,00">
+            </div>
+
+            <div class="formDiv">
+                <label for="">TAXA DE JUROS (A.M.)</label>
+                <div class="dropdown">
+                    1.0%
+                    <div class="dopdownContent">
+                        <div>1.0%</div>
+                        <div>2.0%</div>
+                        <div>3.0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="formDiv">
+                <label for="">N° DE PARCELAS</label>
+                <input type="number" placeholder="R$ 0,00">
+            </div>
+
+            <div class="formDiv">
+                <label for="">1° VENCIMENTO</label>
+                <input type="date" placeholder="R$ 0,00">
+            </div>
+        </div>
+
+        <div>
+            <div class="menuDiv">
+                <p>VALOR DE CADA PARCELA</p>
+                <div>R$ 0,00</div>
+                <hr>
+                <p>Cálculo baseado no regime de juros simples/compostos conforme regras bancárias</p>
+            </div>
+            <div class="menuDiv">
+                <p>VALOR DE CADA PARCELA</p>
+                <div>R$ 0,00</div>
+                <hr>
+                <p>Cálculo baseado no regime de juros simples/compostos conforme regras bancárias</p>
+            </div>
+        </div>
+
+        <button>Efetivar Empréstimo</button>
+    </section>
 </body>
 
 </html>

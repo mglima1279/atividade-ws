@@ -24,18 +24,16 @@ namespace Backend.Repositories
 
         public async Task<Agencia> Save(int id, Agencia entity)
         {
-            Agencia existingEntity = await FindById(id);
-
-            Agencia dbAgencia = await FindById(entity.Id) ?? throw new Exception("404 - Not Found");
+            Agencia dbAgencia = await FindById(id) ?? throw new Exception("404 - Not Found");
 
             dbAgencia.Name = (entity.Name != "") ? entity.Name : dbAgencia.Name;
             dbAgencia.City = (entity.City != "") ? entity.City : dbAgencia.City;
             dbAgencia.State = (entity.State != "") ? entity.State : dbAgencia.State;
 
-            _context.Agencias.Update(existingEntity);
+            _context.Agencias.Update(dbAgencia);
 
             await _context.SaveChangesAsync();
-            return existingEntity;
+            return dbAgencia;
         }
 
         public async Task<Agencia> FindById(int id)
