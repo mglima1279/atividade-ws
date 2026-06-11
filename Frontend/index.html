@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulação de Empréstimos</title>
     <style>
-        /* --- ESTILOS ORIGINAIS E AJUSTES DE ESTADO --- */
         * {
             margin: 0;
             padding: 0;
@@ -57,7 +56,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* Regra 1: Estado bloqueado da interface */
         section.disabled {
             opacity: 0.5;
             pointer-events: none;
@@ -166,7 +164,6 @@
             margin-bottom: 30px;
         }
 
-        /* Dropdown customizado */
         .dropdown {
             color: #000c2b;
             width: 100%;
@@ -294,7 +291,6 @@
             margin: 5px 0;
         }
 
-        /* --- RESPONSIVIDADE --- */
         @media (max-width: 760px) {
             .conditions-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -548,7 +544,7 @@
                 alert("Por favor, preencha todos os campos do empréstimo antes de efetivar.");
                 return;
             }
-            alert(`🎉 Empréstimo de ${inputValor.value} efetivado com sucesso para a conta:\n${selectConta.value}`);
+            alert(`Empréstimo de ${inputValor.value} efetivado com sucesso para a conta:\n${selectConta.value}`);
         });
 
         function isCpfValid(cpf) {
